@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/garredow/nothing-api/compare/v1.0.0...v1.0.1) (2022-04-02)
+
+
+### Bug Fixes
+
+* **circleci:** skip docker build and deploy ([8d28cd2](https://github.com/garredow/nothing-api/commit/8d28cd26688707c06a435c3fd258220cfd505a15))
+
 # 1.0.0 (2022-04-02)
 
 
