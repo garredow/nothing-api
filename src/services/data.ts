@@ -1,5 +1,5 @@
 import { Database } from '../database/db';
-import { Health } from '../models';
+import { Health, Project } from '../models';
 const { version: apiVersion } = require('../../package.json');
 
 export class Data {
@@ -8,6 +8,12 @@ export class Data {
   constructor(db?: Database) {
     this.db = db ?? new Database();
   }
+
+  projects = {
+    getAll: (): Promise<Project[]> => {
+      return this.db.project.getAll();
+    },
+  };
 
   meta = {
     health: async (): Promise<Health> => {

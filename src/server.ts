@@ -6,6 +6,7 @@ import { LoggerOptions } from 'pino';
 import { Database } from './database/db';
 import { resolvers } from './graphql/resolvers';
 import { Health } from './graphql/types/Health';
+import { Project } from './graphql/types/Project';
 import { Query } from './graphql/types/Query';
 import { config } from './lib/config';
 import { Data } from './services/data';
@@ -51,7 +52,7 @@ export function configureServer() {
 
   fastify.register(mercurius, {
     schema: makeExecutableSchema({
-      typeDefs: [...scalarTypeDefs, Query, Health],
+      typeDefs: [...scalarTypeDefs, Query, Health, Project],
       resolvers: {
         ...scalarResolvers,
         ...resolvers,

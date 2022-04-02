@@ -1,13 +1,15 @@
 import knex from 'knex';
-import _ from 'lodash';
 import pg from 'pg';
 import { config } from '../lib/config';
+import { Project } from '../models';
 
 pg.types.setTypeParser(pg.types.builtins.INT8, (value: string) => {
   return parseInt(value);
 });
 
-enum Table {}
+enum Table {
+  Project = 'project',
+}
 
 export class Database {
   private db;
@@ -31,6 +33,18 @@ export class Database {
     });
   }
 
+  project = {
+    getById: (id: number): Promise<Project | undefined> => {
+      return this.db<Project>(Table.Project).where({ id }).first();
+    },
+    getByIds: (ids: number[]): Promise<Project[]> => {
+      return this.db<Project>(Table.Project).whereIn('id', ids);
+    },
+    getAll: (): Promise<Project[]> => {
+      return this.db<Project>(Table.Project);
+    },
+  };
+
   // Health
 
   meta = {
@@ -45,22 +59,4 @@ export class Database {
       }
     },
   };
-}
-
-function toSnakeCase<TResult>(source: any): TResult {
-  const result = Object.entries(source).reduce((acc, [key, val]) => {
-    acc[_.snakeCase(key)] = val;
-    return acc;
-  }, {} as any);
-
-  return result as TResult;
-}
-
-function toCamelCase<TResult>(source: any): TResult {
-  const result = Object.entries(source).reduce((acc, [key, val]) => {
-    acc[_.camelCase(key)] = val;
-    return acc;
-  }, {} as any);
-
-  return result as TResult;
 }

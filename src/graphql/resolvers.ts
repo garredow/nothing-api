@@ -5,5 +5,8 @@ export const resolvers: IResolvers = {
     async health(root, args, { dataClient }, info) {
       return dataClient.meta.health();
     },
+    projects(root, args, { dataClient }, info) {
+      return dataClient.projects.getAll();
+    },
   },
 };

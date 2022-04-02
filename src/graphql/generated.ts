@@ -175,6 +175,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  projects: Array<Project>;
   health: Health;
 };
 
@@ -184,6 +185,19 @@ export type Health = {
   uptime: Scalars['BigInt'];
   date: Scalars['String'];
   databaseLatency: Scalars['Int'];
+};
+
+export type Project = {
+  __typename?: 'Project';
+  id: Scalars['Int'];
+  slug: Scalars['String'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  github_id: Scalars['String'];
+  circleci_id?: Maybe<Scalars['String']>;
+  icon_url?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -325,6 +339,7 @@ export type ResolversTypes = {
   Health: ResolverTypeWrapper<Health>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Project: ResolverTypeWrapper<Project>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -392,6 +407,7 @@ export type ResolversParentTypes = {
   Health: Health;
   String: Scalars['String'];
   Int: Scalars['Int'];
+  Project: Project;
   Boolean: Scalars['Boolean'];
 };
 
@@ -666,6 +682,7 @@ export type QueryResolvers<
   ContextType = MercuriusContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
   health?: Resolver<ResolversTypes['Health'], ParentType, ContextType>;
 };
 
@@ -677,6 +694,22 @@ export type HealthResolvers<
   uptime?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   databaseLatency?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProjectResolvers<
+  ContextType = MercuriusContext,
+  ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
+> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  github_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  circleci_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  icon_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updated_at?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -741,6 +774,7 @@ export type Resolvers<ContextType = MercuriusContext> = {
   AccountNumber?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   Health?: HealthResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
 };
 
 export type Loader<TReturn, TObj, TParams, TContext> = (
@@ -768,6 +802,18 @@ export interface Loaders<
     uptime?: LoaderResolver<Scalars['BigInt'], Health, {}, TContext>;
     date?: LoaderResolver<Scalars['String'], Health, {}, TContext>;
     databaseLatency?: LoaderResolver<Scalars['Int'], Health, {}, TContext>;
+  };
+
+  Project?: {
+    id?: LoaderResolver<Scalars['Int'], Project, {}, TContext>;
+    slug?: LoaderResolver<Scalars['String'], Project, {}, TContext>;
+    name?: LoaderResolver<Scalars['String'], Project, {}, TContext>;
+    description?: LoaderResolver<Scalars['String'], Project, {}, TContext>;
+    github_id?: LoaderResolver<Scalars['String'], Project, {}, TContext>;
+    circleci_id?: LoaderResolver<Maybe<Scalars['String']>, Project, {}, TContext>;
+    icon_url?: LoaderResolver<Maybe<Scalars['String']>, Project, {}, TContext>;
+    created_at?: LoaderResolver<Scalars['DateTime'], Project, {}, TContext>;
+    updated_at?: LoaderResolver<Scalars['DateTime'], Project, {}, TContext>;
   };
 }
 declare module 'mercurius' {
