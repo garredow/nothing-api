@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/garredow/nothing-api/compare/v1.0.1...v1.1.0) (2022-04-02)
+
+
+### Features
+
+* **project:** add projects query ([1b19919](https://github.com/garredow/nothing-api/commit/1b199191d96b19acb3c3973180410524a655be99))
+
 ## [1.0.1](https://github.com/garredow/nothing-api/compare/v1.0.0...v1.0.1) (2022-04-02)
 
 
